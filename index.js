@@ -1,19 +1,36 @@
+// DOM ELEMENTS
 const btnElement = document.getElementById("btn");
 const appElement = document.getElementById("app");
 
+// LOCAL STORAGE
+
+// Save
+function saveNote(notes) {
+  // Local won't store arrays for safety
+  localStorage.setItem("note-app", JSON.stringify(notes));
+}
+
+// Read
+function getNotes() {
+  // If nothing found, return empty array
+  return JSON.parse(localStorage.getItem("note-app") || "[]");
+}
+
+// Load existing notes from local storage
 getNotes().forEach((note) => {
   const noteElement = createNoteElement(note.id, note.content);
   appElement.insertBefore(noteElement, btnElement);
 });
 
+// CRUD ACTIONS
+
+// Create HTML element
 function createNoteElement(id, content) {
-  // console.log(id, content);
   const element = document.createElement("textarea");
   element.classList.add("note");
   element.placeholder = "Empty note";
   element.value = content;
 
-  // Delete note on double click with warning
   element.addEventListener("dblclick", ()=>{
     const warning = confirm("Are you sure you want to delete this note?");
     if(warning){
@@ -29,6 +46,7 @@ function createNoteElement(id, content) {
   return element;
 };
 
+// Delete
 function deleteNote(id, element) {
   // Keep all notes except the note with this id
   const notes = getNotes().filter((note)=>note.id != id);
@@ -40,6 +58,7 @@ function deleteNote(id, element) {
   appElement.removeChild(element);
 };
 
+// Update
 function updateNote(id, content){
   // Get the array of notes from local storage
   const notes = getNotes();
@@ -54,36 +73,24 @@ function updateNote(id, content){
   saveNote(notes);
 };
 
+// Add note with unique id to application
 function addNote(){
   const notes = getNotes();
-
-  // console.log("clicked");
-
   const noteObject = {
     // Math method creates id (rand no. between 0 and 1) and round to nearest int (.floor)
     id: Math.floor(Math.random() * 100000),
     content: "",
   };
 
-  // createNoteEl passes noteObject and content
   const noteElement = createNoteElement(noteObject.id, noteObject.content);
-  // Insert element inside the DOM (what to insert, what to insert before)
+  // Insert element inside the DOM
   appElement.insertBefore(noteElement, btnElement);
 
+  // Push into notes array
   notes.push(noteObject);
 
   saveNote(notes);
 }
 
-function saveNote(notes) {
-  // Local storage won't store arrays for safety reasons
-  localStorage.setItem("note-app", JSON.stringify(notes));
-}
-
-function getNotes() {
-  // If nothing found, return empty array
-  return JSON.parse(localStorage.getItem("note-app") || "[]");
-}
-
-// Click event calls the 'add note' fx
+// EVENT LISTENER
 btnElement.addEventListener("click", addNote)
