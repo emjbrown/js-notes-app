@@ -3,6 +3,29 @@ const btnElement = document.getElementById("btn");
 function createNoteElement(id, content) {
   // console.log(id, content);
   const element = document.createElement("textarea");
+  element.classList.add("note");
+  element.placeholder = "Empty note";
+  element.value = content;
+
+  // delete note on double click with warning
+  element.addEventListener("dblclick", ()=>{
+    const warning = confirm("Are you sure you want to delete this note?");
+    if(warning){
+      deleteNote(id, element);
+    }
+  })
+
+  element.addEventListener("input", ()=>{
+    updateNote(id, element.value);
+  })
+}
+
+function deleteNote() {
+
+}
+
+function updateNote(){
+
 }
 
 function addNote(){
@@ -15,7 +38,9 @@ function addNote(){
   }
   // console.log(noteObject);
   // createNoteEl passes noteObject and content
-  const noteElement = createNoteElement(noteObject.id, noteObject.content)
+  const noteElement = createNoteElement(noteObject.id, noteObject.content);
+  // insert element inside the DOM
+
 }
 
 // click event calls the 'add note' fx
