@@ -6,28 +6,62 @@ getNotes().forEach((note) => {
   appElement.insertBefore(noteElement, btnElement);
 });
 
-function createNoteElement(id, content) {
-  // console.log(id, content);
-  const element = document.createElement("textarea");
-  element.classList.add("note");
-  element.placeholder = "Empty note";
-  element.value = content;
 
-  // Delete note on double click with warning
-  element.addEventListener("dblclick", ()=>{
+function createNoteElement(id, content) {
+  // Create a div to hold the note and the delete button
+  const noteContainer = document.createElement("div");
+  noteContainer.classList.add("note-container");
+
+  // Create a delete button
+  const deleteButton = document.createElement("button");
+  deleteButton.innerHTML = "&#215;"; // Unicode character for "X"
+  deleteButton.classList.add("delete-btn");
+
+  // Create a textarea for the note
+  const noteTextArea = document.createElement("textarea");
+  noteTextArea.classList.add("note");
+  noteTextArea.placeholder = "Empty note";
+  noteTextArea.value = content;
+
+  // Add a click event listener to the delete button
+  deleteButton.addEventListener("click", () => {
     const warning = confirm("Are you sure you want to delete this note?");
-    if(warning){
-      deleteNote(id, element);
+    if (warning) {
+      deleteNote(id, noteContainer);
     }
   });
 
-  element.addEventListener("input", ()=>{
-    updateNote(id, element.value);
-  });
+  // Append the textarea and delete button to the note container
+  noteContainer.appendChild(noteTextArea);
+  noteContainer.appendChild(deleteButton);
 
   // Return the output of the function
-  return element;
-};
+  return noteContainer;
+}
+
+
+// function createNoteElement(id, content) {
+//   // console.log(id, content);
+//   const element = document.createElement("textarea");
+//   element.classList.add("note");
+//   element.placeholder = "Empty note";
+//   element.value = content;
+
+//   // Delete note on double click with warning
+//   element.addEventListener("dblclick", ()=>{
+//     const warning = confirm("Are you sure you want to delete this note?");
+//     if(warning){
+//       deleteNote(id, element);
+//     }
+//   });
+
+//   element.addEventListener("input", ()=>{
+//     updateNote(id, element.value);
+//   });
+
+//   // Return the output of the function
+//   return element;
+// };
 
 function deleteNote(id, element) {
   // Keep all notes except the note with this id
