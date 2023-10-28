@@ -42,7 +42,7 @@ body{
 
 .btn{
   height: 200px;
-  border-color: rgba(255, 255, 255, .37);
+  border: none;
   background-color: rgba(255, 255, 255, .27);
   border-radius: 10px;
   font-size: 70px;
