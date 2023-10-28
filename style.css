@@ -2,6 +2,7 @@ body{
   margin: 0;
   background-color: rgb(255, 255, 255);
   color: rgb(0,0,255);
+  font-family: monospace;
 }
 
 .heading{
@@ -31,6 +32,7 @@ body{
   resize: none;
   border: none;
   outline: none;
+  width: 100%;
 }
 
 .note:hover,.note:focus{
@@ -63,8 +65,8 @@ body{
   border-radius: 50%;
   cursor: pointer;
   position: absolute;
-  top: 5px;
-  left: 5px;
+  top: -10px;
+  left: 10px;
 }
 
 .note-container {

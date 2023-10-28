@@ -30,7 +30,8 @@ function createNoteElement(id, content) {
 
   // Create a delete button
   const deleteButton = document.createElement("button");
-  deleteButton.innerHTML = "&#215;"; // Unicode character for "X"
+                         // Unicode character for X
+  deleteButton.innerHTML = "&#215;";
   deleteButton.classList.add("delete-btn");
 
   // Create a textarea for the note
@@ -38,6 +39,11 @@ function createNoteElement(id, content) {
   noteTextArea.classList.add("note");
   noteTextArea.placeholder = "Empty note";
   noteTextArea.value = content;
+
+  // Update the note content when input changes
+  noteTextArea.addEventListener("input", () => {
+    updateNote(id, noteTextArea.value);
+  });
 
   // Add a click event listener to the delete button
   deleteButton.addEventListener("click", () => {
@@ -47,14 +53,14 @@ function createNoteElement(id, content) {
     }
   });
 
-  // Append the textarea and delete button to the note container
+  // Add the textarea and delete button to the note container
   noteContainer.appendChild(noteTextArea);
   noteContainer.appendChild(deleteButton);
 
-  // Return the output of the function
+
+  // Return output of function
   return noteContainer;
 }
-
 
 // function createNoteElement(id, content) {
 //   // console.log(id, content);
