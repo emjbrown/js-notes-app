@@ -33,6 +33,7 @@ function createNoteElement(id, content) {
                          // Unicode character for X
   deleteButton.innerHTML = "&#215;";
   deleteButton.classList.add("delete-btn");
+  deleteButton.setAttribute("aria-label", "Delete this note");
 
   // Create a textarea for the note
   const noteTextArea = document.createElement("textarea");
