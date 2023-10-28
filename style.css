@@ -69,6 +69,11 @@ body{
   left: 10px;
 }
 
+.delete-btn:hover{
+  background-color: rgb(226, 226, 226);
+  transition: all 300ms ease;
+}
+
 .note-container {
   display: relative;
   position: relative;
